@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -14,9 +14,28 @@ interface BoardMember {
   careerHistory: string;
 }
 
+type TeamTab = 'board' | 'management';
+
+const teamTabs: { id: TeamTab; label: string }[] = [
+  { id: 'board', label: 'Board Members' },
+  { id: 'management', label: 'Management Team' },
+];
+
 const TeamPage = () => {
   const [selectedMember, setSelectedMember] = useState<BoardMember | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<TeamTab>('board');
+
+  // Allow linking straight to a tab: /about/team/#management
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'board' || hash === 'management') setActiveTab(hash);
+  }, []);
+
+  const selectTab = (tab: TeamTab) => {
+    setActiveTab(tab);
+    window.history.replaceState(null, '', `#${tab}`);
+  };
 
   const boardMembers = [
     {
@@ -76,7 +95,7 @@ const TeamPage = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
         </div>
-        <div className="relative z-10 h-full flex items-end pb-5">
+        <div className="relative z-10 h-full flex items-end pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl">
               <div className="flex items-center mb-4">
@@ -93,12 +112,41 @@ const TeamPage = () => {
         </div>
       </section>
 
+      {/* Team switcher: overlaps the bottom of the hero */}
+      <div className="relative z-20 -mt-8 px-4">
+        <div
+          role="tablist"
+          aria-label="Team"
+          className="mx-auto flex max-w-2xl rounded-full border-4 border-white bg-gray-100 p-1.5 shadow-xl"
+        >
+          {teamTabs.map((tab) => {
+            const on = tab.id === activeTab;
+            return (
+              <button
+                key={tab.id}
+                role="tab"
+                id={`tab-${tab.id}`}
+                aria-selected={on}
+                aria-controls={`panel-${tab.id}`}
+                onClick={() => selectTab(tab.id)}
+                className={`flex-1 rounded-full px-4 py-3 text-sm font-bold transition-all duration-300 sm:py-4 sm:text-base ${
+                  on
+                    ? 'bg-primary text-white shadow-lg'
+                    : 'text-primary/70 hover:bg-white hover:text-primary'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Board Members Section */}
-      <section className="py-16 bg-white">
+      {activeTab === 'board' && (
+      <section id="panel-board" role="tabpanel" aria-labelledby="tab-board" className="pt-14 pb-16">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-center mb-12">
-            <h2 className="text-3xl font-bold text-primary">Board Members</h2>
-          </div>
+          <h2 className="sr-only">Board Members</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {boardMembers.map((member, idx) => (
               <div 
@@ -124,16 +172,13 @@ const TeamPage = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Management Team */}
-      <section className="py-16 bg-gray-50">
+      {activeTab === 'management' && (
+      <section id="panel-management" role="tabpanel" aria-labelledby="tab-management" className="pt-14 pb-16">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-center mb-12">
-            <span className="inline-block bg-secondary/20 p-3 rounded-full mr-3">
-              <Image src="/hierarchical-structure_1042060.png" alt="Hierarchical Structure" width={32} height={32} className="w-8 h-8" />
-            </span>
-            <h2 className="text-3xl font-bold text-primary">Our Management Team</h2>
-          </div>
+          <h2 className="sr-only">Our Management Team</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { name: 'Jimmy Kagoni', title: 'Chief Executive Officer', img: '/images/board/jimmy-kagoni.png' },
@@ -165,6 +210,7 @@ const TeamPage = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Board Member Modal */}
       <BoardMemberModal

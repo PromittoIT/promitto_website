@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Calculator, X, ChevronRight, Info } from 'lucide-react';
+import { Calculator, X, Info } from 'lucide-react';
 
 interface FloatingCalculatorProps {
   className?: string;
@@ -387,13 +387,16 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
       {!isExpanded && (
         <button
           onClick={() => setIsExpanded(true)}
-          className="bg-white text-primary border border-primary/20 rounded-r-2xl px-3 sm:px-4 py-4 sm:py-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 group touch-manipulation animate-pulse"
+          className="group flex flex-col items-center gap-3 rounded-r-xl border border-l-0 border-primary/10 bg-white px-2.5 py-4 shadow-xl transition-all duration-300 hover:pl-3.5 hover:shadow-2xl touch-manipulation sm:px-3 sm:py-5"
           title="Loan Calculator"
           aria-label="Open Loan Calculator"
         >
-          <Calculator className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
-          <span className="font-semibold text-xs sm:text-sm whitespace-nowrap hidden sm:block">Calculators</span>
-          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          {/* Accent bar */}
+          <span className="h-6 w-1 rounded-full bg-secondary transition-all duration-300 group-hover:h-8" />
+          {/* Text reads bottom-to-top */}
+          <span className="rotate-180 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl] sm:text-xs">
+            Calculators
+          </span>
         </button>
       )}
 

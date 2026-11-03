@@ -33,6 +33,20 @@ module.exports = {
       boxShadow: {
         '3xl': '0 35px 60px -12px rgba(0, 0, 0, 0.25)',
       },
+      keyframes: {
+        'hero-fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'hero-progress': {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+      },
+      animation: {
+        'hero-fade-up': 'hero-fade-up 0.7s ease-out both',
+        'hero-progress': 'hero-progress linear forwards',
+      },
     },
   },
   plugins: [

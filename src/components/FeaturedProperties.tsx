@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PropertyCard from './PropertyCard';
+import VideoBanner from './VideoBanner';
 import { supabase } from '@/lib/supabase';
+
+// DEL City project page, linked from the video banner.
+const DEL_CITY_HREF = '/properties/2b836fe4-0756-4e6e-902f-897948db0ecd/';
 
 const FeaturedProperties = () => {
   const [featuredProperties, setFeaturedProperties] = useState<any[]>([]);
@@ -30,7 +34,7 @@ const FeaturedProperties = () => {
             roof_types(name)
           `)
           .eq('featured', true)
-          .limit(6); // Increased limit to allow for navigation
+          .limit(6);
 
         if (error) throw error;
 
@@ -53,7 +57,7 @@ const FeaturedProperties = () => {
     fetchFeaturedProperties();
   }, [mounted]);
 
-  // Show all featured properties (limit to 6)
+  // Show up to 6 featured properties
   const visibleProperties = featuredProperties.slice(0, 6);
 
   // Show loading state until component is mounted
@@ -165,6 +169,17 @@ const FeaturedProperties = () => {
               VIEW ALL
             </Link>
           </div>
+        </div>
+
+        {/* Video banner under the title */}
+        <div className="mb-12">
+          <VideoBanner
+            variant="inset"
+            videoSrc="/video/video_2-web.mp4"
+            poster="/slider/3bdrm.png"
+            withSound
+            cta={{ href: DEL_CITY_HREF, label: 'View More About Del City' }}
+          />
         </div>
 
         {/* Properties Grid */}
