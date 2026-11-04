@@ -1,12 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 
-interface BoardMember {
+export interface BoardMember {
   name: string;
-  title: string;
+  /** Board role, e.g. Chair / Executive Member / Non-Executive Member */
+  role: string;
+  /** Job title and organisation */
+  position: string;
   image: string;
-  about: string;
-  careerHistory: string;
+  bio: string;
 }
 
 interface BoardMemberModalProps {
@@ -50,30 +52,21 @@ const BoardMemberModal: React.FC<BoardMemberModalProps> = ({ member, isOpen, onC
               />
             </div>
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-bold mb-2">{member.name}</h2>
-              <p className="text-lg opacity-90">{member.title}</p>
+              <h2 className="text-2xl font-bold mb-1">{member.name}</h2>
+              <p className="text-lg font-semibold">{member.role}</p>
+              <p className="text-sm opacity-90">{member.position}</p>
             </div>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-8 space-y-6">
-          {/* About Section */}
           <div>
             <h3 className="text-xl font-bold text-primary mb-3 flex items-center">
               <span className="w-2 h-2 bg-secondary rounded-full mr-3"></span>
-              About
+              Profile
             </h3>
-            <p className="text-gray-700 leading-relaxed">{member.about}</p>
-          </div>
-
-          {/* Career History Section */}
-          <div>
-            <h3 className="text-xl font-bold text-primary mb-3 flex items-center">
-              <span className="w-2 h-2 bg-secondary rounded-full mr-3"></span>
-              Career History
-            </h3>
-            <p className="text-gray-700 leading-relaxed">{member.careerHistory}</p>
+            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{member.bio}</p>
           </div>
         </div>
 

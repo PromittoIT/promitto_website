@@ -119,7 +119,17 @@ export default function Header() {
                       }}
                     >
                       <div className="font-medium text-sm">Our Team</div>
-                      <div className="text-xs text-gray-600 hover:text-gray-300">Management & Board members</div>
+                      <div className="text-xs text-gray-600 hover:text-gray-300">Board of Directors & Leadership</div>
+                    </Link>
+                    <Link
+                      href="/about/strategy"
+                      className="block px-4 py-2.5 text-gray-800 hover:bg-primary hover:text-white transition-colors"
+                      onClick={() => {
+                        setIsAboutDropdownOpen(false);
+                      }}
+                    >
+                      <div className="font-medium text-sm">Our Strategy</div>
+                      <div className="text-xs text-gray-600 hover:text-gray-300">Strategic plan & vision</div>
                     </Link>
                     <Link 
                       href="/about/offices" 
@@ -311,6 +321,15 @@ export default function Header() {
                       }}
                     >
                       Our Team
+                    </Link>
+                    <Link
+                      href="/about/strategy"
+                      className={`block px-6 py-2 text-white hover:text-secondary transition-colors capitalize rounded-lg hover:bg-white/10 ${pathname === '/about/strategy' ? 'text-secondary bg-white/10' : ''}`}
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      Our Strategy
                     </Link>
                     <Link 
                       href="/about/offices" 
