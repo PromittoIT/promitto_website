@@ -6,8 +6,8 @@ import PropertyCard from './PropertyCard';
 import VideoBanner from './VideoBanner';
 import { supabase } from '@/lib/supabase';
 
-// DEL City project page, linked from the video banner.
-const DEL_CITY_HREF = '/properties/2b836fe4-0756-4e6e-902f-897948db0ecd/';
+// Del City designs page, linked from the video banner.
+const DEL_CITY_HREF = '/property-designs/del-city/';
 
 const FeaturedProperties = () => {
   const [featuredProperties, setFeaturedProperties] = useState<any[]>([]);

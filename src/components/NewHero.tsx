@@ -64,11 +64,11 @@ const NewHero = () => {
       actions={[
         { href: '/properties', label: 'Browse Projects', primary: true },
         { href: '/how-to-own', label: 'How to Own' },
-        // DEL City project page (Thika)
-        { href: '/properties/2b836fe4-0756-4e6e-902f-897948db0ecd/', label: 'Del City' },
+        // Del City designs page
+        { href: '/property-designs/del-city/', label: 'Del City' },
       ]}
     >
-      <form onSubmit={handleSearch} className="mt-10">
+      <form onSubmit={handleSearch} className="mt-7">
         <div className="rounded-2xl border border-white/20 bg-white/95 p-2 shadow-2xl backdrop-blur-sm">
           <div className="grid grid-cols-1 gap-2 md:grid-cols-[1fr_1fr_1.2fr_auto]">
             <div className="relative">

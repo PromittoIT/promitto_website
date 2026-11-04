@@ -52,6 +52,9 @@ export default function AdminLayout({
                       <Link href="/admin/properties/new" className="block px-2 py-1 hover:text-[#1E40AF] rounded transition-colors">Add Property</Link>
                     </li>
                     <li>
+                      <Link href="/admin/project-designs" className="block px-2 py-1 hover:text-[#1E40AF] rounded transition-colors">Project Designs (Del City)</Link>
+                    </li>
+                    <li>
                       <Link href="/admin/property-types" className="block px-2 py-1 hover:text-[#F59E0B] rounded transition-colors font-semibold">Property Types</Link>
                     </li>
                     <li>

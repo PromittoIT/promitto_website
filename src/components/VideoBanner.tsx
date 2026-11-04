@@ -123,9 +123,9 @@ const VideoBanner = ({
   const slide = slides[active];
   const Heading = isHero ? 'h1' : 'h2';
 
-  // Hero: one screen + 4rem, so it reaches where the "On Show" heading used to start.
+  // Hero: 85% of three quarters of (one screen + 4rem).
   const frame = isHero
-    ? 'min-h-[calc(100vh+4rem)]'
+    ? 'min-h-[calc(63.75vh+2.55rem)]'
     : hasText
       ? 'min-h-[520px] rounded-3xl shadow-2xl xl:min-h-0 xl:aspect-[21/9]'
       : 'aspect-video rounded-3xl shadow-2xl';
@@ -161,7 +161,7 @@ const VideoBanner = ({
       <div
         className={`relative z-10 flex h-full flex-col ${
           isHero
-            ? 'min-h-[calc(100vh+4rem)]'
+            ? 'min-h-[calc(63.75vh+2.55rem)]'
             : hasText
               ? 'min-h-[520px] xl:absolute xl:inset-0 xl:min-h-0'
               : 'absolute inset-0'
@@ -171,14 +171,14 @@ const VideoBanner = ({
           <div
             className={
               isHero
-                ? 'mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pt-16 pb-36 sm:px-6 lg:px-8'
+                ? 'mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pt-8 pb-36 sm:px-6 sm:pb-24 lg:px-8'
                 : 'flex w-full flex-1 items-center px-6 pt-10 pb-28 sm:px-10 lg:px-14'
             }
           >
             <div className={`text-white ${isHero ? 'w-full' : 'max-w-xl'}`}>
               <div className={isHero ? 'max-w-3xl' : undefined}>
               {eyebrow && (
-                <div className={`flex items-center gap-3 ${isHero ? 'mb-6' : 'mb-4'}`}>
+                <div className={`flex items-center gap-3 ${isHero ? 'mb-4' : 'mb-4'}`}>
                   <span className="h-[3px] w-10 rounded-full bg-secondary" />
                   <span className="text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
                     {eyebrow}
@@ -189,14 +189,14 @@ const VideoBanner = ({
               <div key={active} className="animate-hero-fade-up">
                 <Heading
                   className={`font-black leading-[1.05] tracking-tight ${
-                    isHero ? 'text-5xl md:text-6xl lg:text-7xl' : 'text-4xl md:text-5xl'
+                    isHero ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-4xl md:text-5xl'
                   }`}
                 >
                   {slide.title}
                 </Heading>
                 <p
                   className={`max-w-2xl font-light leading-relaxed text-white/90 ${
-                    isHero ? 'mt-6 text-lg md:text-xl' : 'mt-4 text-base md:text-lg'
+                    isHero ? 'mt-4 text-lg md:text-xl' : 'mt-4 text-base md:text-lg'
                   }`}
                 >
                   {slide.description}
@@ -206,14 +206,14 @@ const VideoBanner = ({
 
               {/* Hero: buttons and search are centered across the banner */}
               {actions.length > 0 && (
-                <div className={`flex flex-col gap-4 sm:flex-row ${isHero ? 'mt-10 sm:justify-center' : 'mt-8'}`}>
+                <div className={`flex flex-col gap-4 sm:flex-row ${isHero ? 'mt-7 sm:justify-center' : 'mt-8'}`}>
                   {actions.map((a) =>
                     a.primary ? (
                       <Link
                         key={a.href}
                         href={a.href}
                         className={`group inline-flex items-center justify-center gap-2 rounded-full bg-secondary font-bold text-primary shadow-lg transition-all duration-300 hover:bg-white hover:shadow-xl ${
-                          isHero ? 'px-8 py-4 text-lg' : 'px-7 py-3 text-base'
+                          isHero ? 'px-8 py-3.5 text-lg' : 'px-7 py-3 text-base'
                         }`}
                       >
                         {a.label}
@@ -224,7 +224,7 @@ const VideoBanner = ({
                         key={a.href}
                         href={a.href}
                         className={`inline-flex items-center justify-center rounded-full border-2 border-white/40 font-bold text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-primary ${
-                          isHero ? 'px-8 py-4 text-lg' : 'px-7 py-3 text-base'
+                          isHero ? 'px-8 py-3.5 text-lg' : 'px-7 py-3 text-base'
                         }`}
                       >
                         {a.label}

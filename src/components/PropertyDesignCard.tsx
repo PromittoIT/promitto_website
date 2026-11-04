@@ -4,25 +4,15 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-interface PropertyDesign {
-  id: string;
-  name: string;
-  bedrooms: number;
-  roofType: string;
-  houseType: string;
-  imagePath: string;
-  area?: string;
-  description?: string;
-  features?: string[];
-  folderPath: string;
-  images: string[];
-}
+import type { PropertyDesign } from '@/data/propertyDesigns';
 
 interface PropertyDesignCardProps {
   design: PropertyDesign;
+  /** Detail page; defaults to the built-in Property Designs page */
+  href?: string;
 }
 
-export default function PropertyDesignCard({ design }: PropertyDesignCardProps) {
+export default function PropertyDesignCard({ design, href }: PropertyDesignCardProps) {
   const [imageError, setImageError] = useState(false);
   const router = useRouter();
 
@@ -161,7 +151,7 @@ export default function PropertyDesignCard({ design }: PropertyDesignCardProps) 
 
         {/* Action Button */}
         <button 
-          onClick={() => router.push(`/property-designs/${design.id}`)}
+          onClick={() => router.push(href ?? `/property-designs/${design.id}`)}
           className="w-full bg-white border-2 border-primary text-primary py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all duration-200 flex items-center justify-center group text-sm sm:text-base"
         >
           <span>View Details</span>

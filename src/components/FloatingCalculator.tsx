@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Calculator, X, Info } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 interface FloatingCalculatorProps {
   className?: string;
@@ -437,4 +438,11 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
   );
 };
 
-export default FloatingCalculator;
+// Not shown in the admin area, where it would cover the admin sidebar
+const FloatingCalculatorOutsideAdmin: React.FC<FloatingCalculatorProps> = (props) => {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
+  return <FloatingCalculator {...props} />;
+};
+
+export default FloatingCalculatorOutsideAdmin;
