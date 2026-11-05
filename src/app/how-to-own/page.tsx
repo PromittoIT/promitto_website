@@ -24,7 +24,7 @@ const HowToOwn = () => {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />
+          <div className="absolute inset-0 bg-primary/70" />
         </div>
 
         {/* Content */}
@@ -32,10 +32,10 @@ const HowToOwn = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="text-center text-white space-y-6">
               <div className="space-y-4">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-shadow-lg">
-                  Own a <span className="text-secondary">Home</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
+                  Own a Home
                 </h1>
-                <p className="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed text-shadow-md max-w-3xl mx-auto">
+                <p className="text-lg md:text-xl font-light leading-relaxed text-white/90 max-w-3xl mx-auto">
                 Promitto Ltd has streamlined homeownership solutions that make your dream home achievable and accessible.
                 </p>
               </div>
@@ -43,7 +43,7 @@ const HowToOwn = () => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center pt-2">
                 <a 
                   href="/customer-journey" 
-                  className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl text-center"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-8 py-3.5 text-lg font-bold text-primary shadow-lg transition-all duration-300 hover:bg-white hover:shadow-xl"
                 >
                   Get Started Now &rarr;
                 </a>
@@ -66,19 +66,19 @@ const HowToOwn = () => {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
              {/* Left Side - Features List */}
              <div className="space-y-8">
-               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+               <h2 className="text-3xl font-bold text-primary mb-6">
                  Why Choose Promitto?
                </h2>
                <ul className="space-y-6">
-                 <li className="flex items-center text-gray-700 text-lg md:text-xl">
+                 <li className="flex items-center text-gray-600 text-lg">
                    <CheckCircle className="w-6 h-6 md:w-7 md:h-7 text-secondary flex-shrink-0 mr-4" />
                    <span>Flexible financing options tailored to your needs</span>
                  </li>
-                 <li className="flex items-center text-gray-700 text-lg md:text-xl">
+                 <li className="flex items-center text-gray-600 text-lg">
                    <CheckCircle className="w-6 h-6 md:w-7 md:h-7 text-secondary flex-shrink-0 mr-4" />
                    <span>Dream home fits comfortably within your budget</span>
                  </li>
-                 <li className="flex items-center text-gray-700 text-lg md:text-xl">
+                 <li className="flex items-center text-gray-600 text-lg">
                    <CheckCircle className="w-6 h-6 md:w-7 md:h-7 text-secondary flex-shrink-0 mr-4" />
                    <span>Professional construction and project management</span>
                  </li>
@@ -94,8 +94,8 @@ const HowToOwn = () => {
                    </svg>
                  </div>
                  <span className="text-primary text-4xl md:text-5xl font-black mb-2">100%</span>
-                 <span className="text-gray-800 text-lg md:text-xl font-semibold mb-2">Approval Rate</span>
-                 <p className="text-gray-600 text-sm md:text-base">
+                 <span className="text-gray-900 text-xl font-bold mb-2">Approval Rate</span>
+                 <p className="text-gray-600">
                    Join thousands of satisfied homeowners who achieved their dreams with Promitto
                  </p>
                </div>
@@ -115,8 +115,8 @@ const HowToOwn = () => {
           <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-2xl flex flex-row items-center justify-between px-8 py-4 min-h-[80px]">
             {/* Left: Title and Subtitle */}
             <div className="flex flex-col justify-center">
-              <h3 className="text-base md:text-lg lg:text-xl font-bold text-black mb-1">Our Terms & Conditions</h3>
-              <p className="text-gray text-xs md:text-sm lg:text-base">Review our comprehensive loan terms and conditions</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">Our Terms & Conditions</h3>
+              <p className="text-gray-600 text-sm md:text-base">Review our comprehensive loan terms and conditions</p>
             </div>
             {/* Right: Icon and Button */}
             <div className="flex items-center gap-3">
@@ -169,7 +169,7 @@ function CollapsibleTerms() {
   return (
     <div>
       <button
-        className="w-full text-left text-2xl md:text-3xl font-bold text-secondary p-8 border-b focus:outline-none flex items-center justify-between bg-white"
+        className="w-full text-left text-2xl font-bold text-primary p-8 border-b focus:outline-none flex items-center justify-between bg-white"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="terms-content"
@@ -179,11 +179,11 @@ function CollapsibleTerms() {
       </button>
       {open && (
         <div id="terms-content" className="p-8 animate-fade-in">
-          <h3 className="text-xl md:text-2xl font-semibold text-primary mb-6">01. Loan Security</h3>
-          <p className="text-gray text-sm md:text-base mb-4">
+          <h3 className="text-xl font-bold text-primary mb-6">01. Loan Security</h3>
+          <p className="text-gray-600 text-sm md:text-base mb-4">
             Borrower agrees that on or before the date of this agreement shall deliver the following document to the lender:
           </p>
-          <ul className="list-disc pl-6 text-gray text-sm md:text-base mb-8">
+          <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base mb-8">
             <li>A title deed to a parcel of land upon which the construction project will be executed.</li>
             <li>The borrower must possess a personal title deed written under his or her name.</li>
             <li>In case of the title deed belonging to a second party, the company will require written consent from the second party to use the title deed.</li>
@@ -191,9 +191,9 @@ function CollapsibleTerms() {
             <li>If there are any family disputes concerning the title deed, Promitto will not be part and parcel of that.</li>
           </ul>
 
-          <h3 className="text-xl md:text-2xl font-semibold text-primary mb-6">02. Loan Terms</h3>
-          <h4 className="text-lg md:text-xl font-semibold mb-4">(A) Deposits</h4>
-          <ul className="list-disc pl-6 text-gray text-sm md:text-base mb-8">
+          <h3 className="text-xl font-bold text-primary mb-6">02. Loan Terms</h3>
+          <h4 className="text-lg font-bold mb-4">(A) Deposits</h4>
+          <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base mb-8">
             <li>The borrower shall be required to make a 30% deposit of the loan amount depending on the selected house design.</li>
             <li>In cases where the borrower is not financially ready with the minimum deposit for the construction to happen, the client will be allowed to make instalments payments but will be made to understand that the construction will only start once the minimum deposit has been attained.</li>
             <li>In a case where the client/borrower is ready with the 30% deposit, they will proceed to sign the construction agreement for the construction to commence.</li>
@@ -201,15 +201,15 @@ function CollapsibleTerms() {
             <li>The Company can also enter into a construction agreement with a client not seeking a loan facility for construction on the condition that the client provides the full finances to undertake the project.</li>
           </ul>
 
-          <h4 className="text-lg md:text-xl font-semibold mb-4">(B) Loan Repayment Terms</h4>
-          <ul className="list-disc pl-6 text-gray text-sm md:text-base mb-8">
+          <h4 className="text-lg font-bold mb-4">(B) Loan Repayment Terms</h4>
+          <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base mb-8">
             <li>The Loan shall be payable up to a maximum of seven (7) years. The exact loan term shall be as discussed and signed in the Loan application form.</li>
             <li>The loan interest rate for the construction loan will be at 12% on a reducing balance rate. With a monthly standard payment plan which the borrower is expected to honour without fail.</li>
           </ul>
 
           <div className="bg-yellow-50 p-6 rounded-lg mb-8">
-            <h4 className="text-lg md:text-xl font-semibold text-secondary mb-4">A customer can default a loan in three ways:</h4>
-            <ul className="list-disc pl-6 text-gray text-sm md:text-base">
+            <h4 className="text-lg font-bold text-secondary mb-4">A customer can default a loan in three ways:</h4>
+            <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base">
               <li>If the client fails to completely repay the remaining 70% of the loan</li>
               <li>If the client fails to repay the monthly instalment as agreed.</li>
               <li>If the client fails to repay the monthly instalment on the stipulated timeline.</li>
@@ -217,16 +217,16 @@ function CollapsibleTerms() {
           </div>
 
           <div className="bg-red-50 p-6 rounded-lg mb-8">
-            <h4 className="text-lg md:text-xl font-semibold text-red-600 mb-4">Actionables</h4>
-            <p className="text-gray text-sm md:text-base italic mb-4">If the client fails to repay any instalment within 60 days, the directive will be to:</p>
-            <ul className="list-disc pl-6 text-gray text-sm md:text-base">
+            <h4 className="text-lg font-bold text-red-600 mb-4">Actionables</h4>
+            <p className="text-gray-600 text-sm md:text-base italic mb-4">If the client fails to repay any instalment within 60 days, the directive will be to:</p>
+            <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base">
               <li>Repossess or auction the property.</li>
               <li>If the client fails to repay the loan on the agreed instalments or on the agreed timelines there will be added penalties incurred.</li>
             </ul>
           </div>
 
-          <h4 className="text-lg md:text-xl font-semibold mb-4">(C) Expenses</h4>
-          <ul className="list-disc pl-6 text-gray text-sm md:text-base">
+          <h4 className="text-lg font-bold mb-4">(C) Expenses</h4>
+          <ul className="list-disc pl-6 text-gray-600 text-sm md:text-base">
             <li>In case the client changes any component of the construction along the way, QS will have to re-evaluate the change cost and charge the customer. This will have to be paid for immediately.</li>
             <li>In case a statutory requirement is delayed, Promitto shall not be held liable.</li>
           </ul>

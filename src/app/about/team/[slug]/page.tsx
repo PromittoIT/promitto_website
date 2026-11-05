@@ -4,21 +4,23 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Header from '../../../../components/Header';
 import Footer from '../../../../components/Footer';
-import { directors, getDirector } from '../../../../data/team';
+import { profiles, getProfile } from '../../../../data/team';
 
-// One page per director, built at compile time.
+// One page per person with a profile, built at compile time.
 export function generateStaticParams() {
-  return directors.map((d) => ({ slug: d.slug }));
+  return profiles.map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
-  const d = getDirector(params.slug);
-  return { title: d ? `${d.name} | Promitto Board of Directors` : 'Our Team | Promitto' };
+  const d = getProfile(params.slug);
+  if (!d) return { title: 'Our Team | Promitto' };
+  return { title: `${d.name} | ${d.team === 'board' ? 'Promitto Board of Directors' : 'Promitto Leadership'}` };
 }
 
 export default function DirectorProfilePage({ params }: { params: { slug: string } }) {
-  const d = getDirector(params.slug);
+  const d = getProfile(params.slug);
   if (!d) notFound();
+  const bio = d.bio;
 
   return (
     <main className="min-h-screen bg-white font-sans">
@@ -27,7 +29,7 @@ export default function DirectorProfilePage({ params }: { params: { slug: string
       <section className="py-12 md:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link
-            href="/about/team/#board"
+            href={`/about/team/#${d.team}`}
             className="inline-flex items-center gap-1 text-sm font-semibold text-accent transition-colors hover:text-primary"
           >
             &larr; Back to Our Team
@@ -41,9 +43,9 @@ export default function DirectorProfilePage({ params }: { params: { slug: string
             <div>
               <h1 className="text-3xl font-bold text-primary md:text-4xl">{d.name}</h1>
               <p className="mt-2 text-lg font-semibold text-accent">{d.role}</p>
-              <p className="mt-1 text-gray-500">{d.position}</p>
+              {d.position && <p className="mt-1 text-gray-500">{d.position}</p>}
               <div className="mt-6 space-y-4 leading-relaxed text-gray-700">
-                {d.bio.split('\n\n').map((para, i) => (
+                {bio.split('\n\n').map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
               </div>

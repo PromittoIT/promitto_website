@@ -6,11 +6,11 @@ export interface Director {
   name: string;
   /** Board role, e.g. Chair / Executive Member / Non-Executive Member */
   role: string;
-  /** Job title and organisation */
-  position: string;
+  /** Job title and organisation (optional) */
+  position?: string;
   image: string;
-  /** Full profile; blank lines separate paragraphs */
-  bio: string;
+  /** Full profile; blank lines separate paragraphs. Without it the card has no profile page. */
+  bio?: string;
 }
 
 export interface LeadershipMember {
@@ -19,6 +19,22 @@ export interface LeadershipMember {
   image: string;
   /** Director profile to open for this person, if they also sit on the board */
   profileSlug?: string;
+  /** Their own profile page (/about/team/<slug>/), used when they have a bio and are not on the board */
+  slug?: string;
+  position?: string;
+  bio?: string;
+}
+
+/** Everything a profile page needs */
+export interface Profile {
+  slug: string;
+  name: string;
+  role: string;
+  position?: string;
+  image: string;
+  bio: string;
+  /** Which tab "Back to Our Team" returns to */
+  team: 'board' | 'management';
 }
 
 export const directors: Director[] = [
@@ -39,22 +55,6 @@ export const directors: Director[] = [
     bio: "James is a strategic business and investment leader with extensive experience in financial services, investment banking, construction financing, and real estate. As CEO of Promitto Limited, he drives strategic growth, financial performance, operational excellence, and expansion within the construction financing and property development sector. He has held senior roles in investment banking and portfolio management, including at SBG Securities, Dyer & Blair, and Ngenye Kariuki, and has also led institutional restructuring initiatives. James holds a BCom in Finance, a Master's in Leadership, and professional qualifications including CFA Level I and CPS (4), while pursuing an MBA in Strategic Management at Strathmore University.",
   },
   {
-    slug: 'stephen-kihara',
-    name: 'Stephen W. Kihara',
-    role: 'Executive Member',
-    position: 'Chief Finance Officer, Promitto Limited',
-    image: '/steve.jpeg',
-    bio: 'Stephen is a strategic finance executive serving as Chief Finance Officer at Promitto Limited, overseeing finance, investment, credit, and corporate planning. He leads financial strategy, budgeting, performance management, treasury, reporting, and capital allocation to support sustainable growth and strong governance. Before joining Promitto, he held senior finance roles at Text Book Centre and other leading organizations. Stephen holds a BSc in International Business Management from KCA University and is a CPA(K), with additional training in strategic management, investment analysis, and Six Sigma.',
-  },
-  {
-    slug: 'adreen-gichore',
-    name: 'Adreen Gichore',
-    role: 'Executive Member',
-    position: 'Chief of Staff, Promitto Limited',
-    image: '/images/board/adreen.jpeg',
-    bio: "Adreen is the Chief of Staff at Promitto Limited, providing executive leadership across operations, HR, credit, administration, governance, and risk management. She works closely with the CEO to drive strategic execution and organizational performance. She brings experience in financial services and administration, having held roles at cooperative financial institutions, Stockbridge Investments, Faulu Microfinance Bank, and Wambugu & Muriuki Advocates. She holds a Bachelor's degree in Community Development and Communication from Makerere University.",
-  },
-  {
     slug: 'fred-gachoka',
     name: 'Fred Gachoka',
     role: 'Non-Executive Member',
@@ -70,14 +70,57 @@ export const directors: Director[] = [
     image: '/images/board/waceke-munene.png',
     bio: "Mary is a Senior Business Data Analyst, currently with the State Government of Arizona's Department of Education in the USA. She has 6 years of experience in data science and is well versed in using analytics to transform data into tangible business results.\n\nShe has worked as a business analyst with leading American organizations, including Apple and J.P. Morgan Chase, collaborating with top-tier global talent in analytics and artificial intelligence. Mary holds a Bachelor of Commerce (Finance) from JKUAT and a Master of Science in Data Analytics from Grand Canyon University, USA.",
   },
+  {
+    slug: 'joffrey-cheruiyot',
+    name: 'Joffrey Cheruiyot',
+    role: 'Director of Operations and Projects',
+    image: '/images/board/Joffrey Cheruiyot.jpeg',
+  },
+  {
+    slug: 'isaac-ruigu-ngigi',
+    name: 'Isaac Ruigu Ngigi',
+    role: 'Director of Finance & Strategy',
+    image: '/images/board/Isaac Ruigu Ngigi.jpeg',
+  },
 ];
 
 export const leadership: LeadershipMember[] = [
   { name: 'Jimmy Kagoni', title: 'Chief Executive Officer', image: '/images/board/jimmy-kagoni.png', profileSlug: 'james-kagoni' },
   { name: 'Machira Minyati', title: 'Project Manager', image: '/machira.jpg' },
-  { name: 'Steve Kihara', title: 'Chief Finance Officer', image: '/steve.jpeg', profileSlug: 'stephen-kihara' },
+  {
+    slug: 'stephen-kihara',
+    name: 'Steve Kihara',
+    title: 'Chief Finance Officer',
+    position: 'Promitto Limited',
+    image: '/steve.jpeg',
+    bio: 'Stephen is a strategic finance executive serving as Chief Finance Officer at Promitto Limited, overseeing finance, investment, credit, and corporate planning. He leads financial strategy, budgeting, performance management, treasury, reporting, and capital allocation to support sustainable growth and strong governance. Before joining Promitto, he held senior finance roles at Text Book Centre and other leading organizations. Stephen holds a BSc in International Business Management from KCA University and is a CPA(K), with additional training in strategic management, investment analysis, and Six Sigma.',
+  },
   { name: 'Anastaciah Wajohi', title: 'Head of Customer Service', image: '/anastaciah.jpg' },
-  { name: 'David Mwangi', title: 'Risk Manager', image: '/david.png' },
+  { name: 'Felista N. Mbatha', title: 'Head of Construction Projects and Finance', image: '/felistas.jpeg' },
+  {
+    slug: 'adreen-gichore',
+    name: 'Adreen Gichore',
+    title: 'Chief of Staff & Head of Credit Management',
+    position: 'Promitto Limited',
+    image: '/images/board/adreen.jpeg',
+    bio: "Adreen is the Chief of Staff at Promitto Limited, providing executive leadership across operations, HR, credit, administration, governance, and risk management. She works closely with the CEO to drive strategic execution and organizational performance. She brings experience in financial services and administration, having held roles at cooperative financial institutions, Stockbridge Investments, Faulu Microfinance Bank, and Wambugu & Muriuki Advocates. She holds a Bachelor's degree in Community Development and Communication from Makerere University.",
+  },
 ];
 
 export const getDirector = (slug: string) => directors.find((d) => d.slug === slug);
+
+/** Everyone with a profile page: directors and leadership members who have a bio */
+export const profiles: Profile[] = [
+  ...directors
+    .filter((d) => d.bio)
+    .map((d) => ({ slug: d.slug, name: d.name, role: d.role, position: d.position, image: d.image, bio: d.bio!, team: 'board' as const })),
+  ...leadership
+    .filter((m) => m.slug && m.bio)
+    .map((m) => ({ slug: m.slug!, name: m.name, role: m.title, position: m.position, image: m.image, bio: m.bio!, team: 'management' as const })),
+];
+
+export const getProfile = (slug: string) => profiles.find((p) => p.slug === slug);
+
+/** Profile page link for a leadership card: their own profile, else their director profile */
+export const leadershipProfileSlug = (m: LeadershipMember) =>
+  m.slug && m.bio ? m.slug : m.profileSlug && getProfile(m.profileSlug) ? m.profileSlug : undefined;

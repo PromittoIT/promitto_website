@@ -137,10 +137,10 @@ const CustomerJourney = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 ">
-            Your Journey to <span className="text-primary">Homeownership</span>
+          <h2 className="text-3xl font-bold text-primary mb-6">
+            Your Journey to Homeownership
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed ">
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
             From your first consultation to moving into your dream home, we guide you through every step 
             with our comprehensive 7-step process designed for success.
           </p>
@@ -166,7 +166,7 @@ const CustomerJourney = () => {
                   <h3 className="text-xl font-bold text-gray-900 leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-gray-700 leading-relaxed text-sm">
+                  <p className="text-gray-600 leading-relaxed text-sm">
                     {step.description}
                   </p>
                   
@@ -281,14 +281,14 @@ const CustomerJourney = () => {
         <div className="text-center mt-20">
           <div className="bg-gradient-to-r from-primary to-secondary rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
             <div className="max-w-2xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 text-shadow-lg">
+              <h3 className="text-3xl font-bold text-white mb-4">
                 Ready to Start Your Journey?
               </h3>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              <p className="text-lg text-white/90 mb-8 leading-relaxed">
                 Join thousands of satisfied homeowners who achieved their dreams with our proven process.
               </p>
               <Link href="/contact">
-                <button className="bg-white text-primary px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl">
+                <button className="rounded-full bg-white px-8 py-3.5 text-lg font-bold text-primary shadow-lg transition-all duration-300 hover:bg-secondary hover:shadow-xl">
                   Contact Us Today →
                 </button>
               </Link>

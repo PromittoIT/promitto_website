@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import TeamCard from '../../../components/TeamCard';
-import { directors, leadership, getDirector } from '../../../data/team';
+import { directors, leadership, getProfile, leadershipProfileSlug } from '../../../data/team';
 
 type TeamTab = 'board' | 'management';
 
@@ -113,8 +113,8 @@ const TeamPage = () => {
                   name={d.name}
                   subtitle={d.role}
                   image={d.image}
-                  excerpt={excerptOf(d.bio)}
-                  href={`/about/team/${d.slug}/`}
+                  excerpt={d.bio ? excerptOf(d.bio) : undefined}
+                  href={d.bio ? `/about/team/${d.slug}/` : undefined}
                 />
               ))}
             </div>
@@ -129,8 +129,9 @@ const TeamPage = () => {
             <h2 className="sr-only">Our Leadership</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {leadership.map((m) => {
-                // People who also sit on the board open their director profile
-                const profile = m.profileSlug ? getDirector(m.profileSlug) : undefined;
+                // Their own profile, or their director profile if they also sit on the board
+                const slug = leadershipProfileSlug(m);
+                const profile = slug ? getProfile(slug) : undefined;
                 return (
                   <TeamCard
                     key={m.name}
