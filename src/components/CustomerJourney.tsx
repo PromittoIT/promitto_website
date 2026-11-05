@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, Home } from 'lucide-react';
 
 // Custom hook for counting animation
@@ -61,11 +62,14 @@ const useCountUp = (end: number, duration: number = 2000) => {
 };
 
 const CustomerJourney = () => {
+  const successRate = useCountUp(100, 2500);
+  const homesDelivered = useCountUp(200, 2500);
   const steps = [
     {
       step: 1,
       title: 'Account Opening',
       description: 'Start your journey by opening an account with us and completing your registration process.',
+      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -74,6 +78,7 @@ const CustomerJourney = () => {
       step: 2,
       title: 'Site Visit',
       description: 'Our professional team conducts a comprehensive site assessment and feasibility study.',
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -82,6 +87,7 @@ const CustomerJourney = () => {
       step: 3,
       title: 'Design Discussion',
       description: 'Collaborate with our architects to customize your dream home design and layout.',
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -90,6 +96,7 @@ const CustomerJourney = () => {
       step: 4,
       title: 'Bill of Quantity',
       description: 'Detailed cost estimation, material planning, and comprehensive project budgeting.',
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -98,6 +105,7 @@ const CustomerJourney = () => {
       step: 5,
       title: 'Project Mobilization',
       description: 'Site preparation, contractor mobilization, and construction timeline establishment.',
+      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -106,6 +114,7 @@ const CustomerJourney = () => {
       step: 6,
       title: 'Project Implementation',
       description: 'Professional construction work begins with quality assurance and progress monitoring.',
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -114,6 +123,7 @@ const CustomerJourney = () => {
       step: 7,
       title: 'Project Handover',
       description: 'Final inspection, quality checks, and handover of your completed dream home.',
+      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       color: 'from-primary to-primary/90',
       bgColor: 'bg-primary/5',
       borderColor: 'border-primary/20'
@@ -129,7 +139,7 @@ const CustomerJourney = () => {
         <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-primary rounded-full"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div id="journey-to-homeownership" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-full mb-6 shadow-xl">
@@ -147,47 +157,49 @@ const CustomerJourney = () => {
         </div>
 
         {/* Grid Layout Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {steps.map((step, index) => {
             return (
               <div
                 key={index}
-                className={`group relative rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${step.borderColor} ${step.bgColor} ${
-                  step.step === 1 ? 'lg:col-span-2' : ''
-                }`}
+                className={`group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${step.borderColor} overflow-hidden`}
               >
-                {/* Step Number */}
-                <div className={`w-16 h-16 bg-gradient-to-r ${step.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                  <span className="text-white font-bold text-xl">{step.step}</span>
+                {/* Image */}
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
 
                 {/* Content */}
-                <div className="space-y-4">
+                <div className="p-6 space-y-3">
                   <h3 className="text-xl font-bold text-gray-900 leading-tight">
-                    {step.title}
+                    Step {step.step}: {step.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed text-sm">
                     {step.description}
                   </p>
                   
-                  {/* Special content for Account Opening step */}
+                  {/* Special content for Account Opening step - Deposit Account only */}
                   {step.step === 1 && (
-                    <div className="mt-6 space-y-6">
-                      {/* Deposit Account Section */}
-                      <div className="bg-white/50 rounded-xl p-4 border border-blue-200">
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <div className="bg-primary/5 rounded-xl p-4 border border-primary/20">
                         <div className="flex items-center mb-3">
                           <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center mr-3">
                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                           </div>
-                          <h4 className="font-semibold text-gray-900">Deposit Account</h4>
+                          <h4 className="font-semibold text-gray-900 text-sm">Deposit Account</h4>
                         </div>
-                        <p className="text-gray-700 text-sm mb-3">
+                        <p className="text-gray-700 text-xs mb-3">
                           Our clients are allowed to save 30% of their Bills of Quantities in instalments via their members deposit account.
                         </p>
                         <div>
-                          <h5 className="font-semibold text-gray-900 text-sm mb-2">Requirements for Opening an Account:</h5>
+                          <h5 className="font-semibold text-gray-900 text-xs mb-2">Requirements for Opening an Account:</h5>
                           <ul className="text-gray-600 text-xs space-y-1">
                             <li>• Registration fees</li>
                             <li>• Property search fees</li>
@@ -196,85 +208,90 @@ const CustomerJourney = () => {
                           </ul>
                         </div>
                       </div>
-
-                      {/* Document Downloads Section */}
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border-2 border-blue-300 shadow-md">
-                        <div className="flex items-center mb-3">
-                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                          </div>
-                          <h4 className="font-bold text-gray-900">📥 Document Downloads</h4>
-                        </div>
-                        <p className="text-gray-600 text-xs mb-3">Download these essential forms to get started:</p>
-                        <div className="space-y-3">
-                          <a 
-                            href="/documents/PROMITTO_BANK_ACCOUNT_DETAILS.pdf" 
-                            className="flex items-center justify-between bg-white rounded-lg p-3 border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                          >
-                            <div className="flex items-center">
-                              <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center mr-3">
-                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                              </div>
-                              <span className="text-sm font-medium text-gray-900">Bank Account Details</span>
-                            </div>
-                            <div className="flex items-center text-blue-600 group-hover:text-blue-800">
-                              <span className="text-xs font-semibold mr-1">DOWNLOAD</span>
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
-                              </svg>
-                            </div>
-                          </a>
-                          <a 
-                            href="/documents/membership_application_form.pdf" 
-                            className="flex items-center justify-between bg-white rounded-lg p-3 border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                          >
-                            <div className="flex items-center">
-                              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                </svg>
-                              </div>
-                              <span className="text-sm font-medium text-gray-900">Application Form</span>
-                            </div>
-                            <div className="flex items-center text-blue-600 group-hover:text-blue-800">
-                              <span className="text-xs font-semibold mr-1">DOWNLOAD</span>
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
-                              </svg>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
                     </div>
                   )}
-                </div>
-
-                {/* Progress indicator */}
-                <div className="mt-6 flex items-center justify-center">
-                  <div className="flex space-x-1">
-                    {steps.map((_, stepIndex) => (
-                      <div
-                        key={stepIndex}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          stepIndex <= index 
-                            ? `bg-gradient-to-r ${step.color}` 
-                            : 'bg-gray-300'
-                        }`}
-                      />
-                    ))}
-                  </div>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* Document Downloads Section - Below all cards */}
+        <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-300 shadow-lg">
+          <div className="flex items-center mb-4">
+            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900">Document Downloads</h3>
+          </div>
+          <p className="text-gray-600 mb-6">Download these essential forms to get started:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a 
+              href="/documents/PROMITTO_BANK_ACCOUNT_DETAILS.pdf" 
+              className="flex items-center justify-between bg-white rounded-lg p-4 border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <span className="text-base font-medium text-gray-900">Bank Account Details</span>
+              </div>
+              <div className="flex items-center text-blue-600 group-hover:text-blue-800">
+                <span className="text-sm font-semibold mr-2">DOWNLOAD</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </div>
+            </a>
+            <a 
+              href="/application_forms/Promitto%20Limited%20Joint%26CorporateMembership%20application%20form.pdf" 
+              className="flex items-center justify-between bg-white rounded-lg p-4 border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+                </div>
+                <span className="text-base font-medium text-gray-900">Application Form (Corporate)</span>
+              </div>
+              <div className="flex items-center text-blue-600 group-hover:text-blue-800">
+                <span className="text-sm font-semibold mr-2">DOWNLOAD</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </div>
+            </a>
+            <a 
+              href="/application_forms/Promitto%20Limited%20Membership%20application%20form.pdf" 
+              className="flex items-center justify-between bg-white rounded-lg p-4 border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200 group"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+                </div>
+                <span className="text-base font-medium text-gray-900">Application Form (Individual)</span>
+              </div>
+              <div className="flex items-center text-blue-600 group-hover:text-blue-800">
+                <span className="text-sm font-semibold mr-2">DOWNLOAD</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3" />
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* Call to Action Section */}
@@ -298,38 +315,31 @@ const CustomerJourney = () => {
 
         {/* Success Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          {(() => {
-            const successRate = useCountUp(100, 2500);
-            const homesDelivered = useCountUp(60, 2500);
-            
-            return (
-              <>
-                <div className="text-center" ref={successRate.ref}>
-                  <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <CheckCircle className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">{successRate.count}%</h4>
-                  <p className="text-gray-600">Success Rate</p>
-                </div>
-                <div className="text-center" ref={homesDelivered.ref}>
-                  <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Home className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">{homesDelivered.count}+</h4>
-                  <p className="text-gray-600">Homes Delivered Per Year</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">4-6</h4>
-                  <p className="text-gray-600">Months Average</p>
-                </div>
-              </>
-            );
-          })()}
+          <>
+            <div className="text-center" ref={successRate.ref}>
+              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <CheckCircle className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-900 mb-2">{successRate.count}%</h4>
+              <p className="text-gray-600">Success Rate</p>
+            </div>
+            <div className="text-center" ref={homesDelivered.ref}>
+              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Home className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-900 mb-2">{homesDelivered.count}+</h4>
+              <p className="text-gray-600">Homes Delivered Per Year</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h4 className="text-2xl font-bold text-gray-900 mb-2">4-6</h4>
+              <p className="text-gray-600">Months Average</p>
+            </div>
+          </>
         </div>
       </div>
     </section>

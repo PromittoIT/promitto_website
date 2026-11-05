@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import MediaSidebar from '../../../components/MediaSidebar';
 
 const ExpertisePage = () => {
   return (
@@ -9,24 +10,26 @@ const ExpertisePage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative h-[400px] overflow-hidden">
+      <section className="relative h-[300px] sm:h-[350px] lg:h-[400px] overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/about_us_hero_image.jpeg"
-            alt="About Promitto Limited"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
-        </div>
+          <div className="absolute inset-0">
+            <Image
+              src="/about_us_hero_image.jpeg"
+              alt="About Promitto Limited"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
+          </div>
         <div className="relative z-10 h-full flex items-end pb-5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl">
               <div className="flex items-center mb-4">
                 <div className="w-1 h-16 bg-secondary mr-6"></div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white">
+                <h1 className="hero-title text-white">
                   Technical Expertise
                 </h1>
               </div>
@@ -40,62 +43,37 @@ const ExpertisePage = () => {
 
       {/* Technical Expertise */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-center mb-12">
-            
-            <h2 className="text-3xl font-bold text-gray-900">Our Technical Capacity</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
-              <h3 className="text-xl font-bold text-primary mb-6 flex items-center">
-                
-                Core Departments
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-3 h-3 bg-primary rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="font-semibold text-gray-900">Project Management Department:</span>
-                    <span className="text-secondary font-bold ml-2">5 team members</span>
-                  </div>
-                </li>
-                <li className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-3 h-3 bg-primary rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="font-semibold text-gray-900">Architectural & Interior Designers:</span>
-                    <span className="text-secondary font-bold ml-2">5 engineers</span>
-                  </div>
-                </li>
-                <li className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-3 h-3 bg-primary rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="font-semibold text-gray-900">Quantity Survey Department:</span>
-                    <span className="text-secondary font-bold ml-2">4 Quantity Surveyors</span>
-                  </div>
-                </li>
-              </ul>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center justify-center mb-12">
+                <h2 className="site-title text-gray-900">Our Technical Capacity</h2>
+              </div>
+              
+              {/* Organizational Chart */}
+              <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-12">
+            <h3 className="text-2xl font-bold text-primary mb-8 text-center">
+              Organizational Structure
+            </h3>
+            <div className="flex justify-center">
+              <Image
+                src="/organogram.png"
+                alt="Organizational Structure"
+                width={1200}
+                height={1600}
+                className="w-full h-auto max-w-5xl rounded-lg"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 1200px"
+                quality={85}
+              />
             </div>
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
-              <h3 className="text-xl font-bold text-primary mb-6 flex items-center">
-                
-                Support Departments
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-3 h-3 bg-secondary rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="font-semibold text-gray-900">Account Management Department:</span>
-                    <span className="text-primary font-bold ml-2">6 account managers</span>
-                  </div>
-                </li>
-                <li className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-3 h-3 bg-secondary rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="font-semibold text-gray-900">Engineering Department:</span>
-                    <span className="text-primary font-bold ml-2">2 Engineers</span>
-                  </div>
-                </li>
-              </ul>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:sticky lg:top-24 lg:h-fit">
+              <MediaSidebar />
             </div>
           </div>
         </div>
@@ -109,12 +87,12 @@ const ExpertisePage = () => {
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary rounded-full blur-3xl"></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             
-            <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="site-title text-gray-900 mb-6">
               Key Capabilities
-            </h3>
+            </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               Our multidisciplinary team brings together expertise across all aspects of construction and project management
             </p>
@@ -128,6 +106,9 @@ const ExpertisePage = () => {
                   alt="Project Planning"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
                 <div className="absolute top-4 right-4">
@@ -161,6 +142,9 @@ const ExpertisePage = () => {
                   alt="Design & Architecture"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
                 <div className="absolute top-4 right-4">
@@ -194,6 +178,9 @@ const ExpertisePage = () => {
                   alt="Cost Management"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
                 <div className="absolute top-4 right-4">
@@ -229,3 +216,4 @@ const ExpertisePage = () => {
 };
 
 export default ExpertisePage;
+

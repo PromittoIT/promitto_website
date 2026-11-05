@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { getPropertyImageList } from '@/lib/propertyImages';
 
 interface Property {
   id: string;
@@ -26,15 +27,91 @@ interface Property {
 interface PropertyCardProps {
   property: Property | null;
   onPropertyClick?: () => void;
+  priority?: boolean;
 }
 
-const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
+const PropertyCard = ({ property, onPropertyClick, priority = false }: PropertyCardProps) => {
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [autoSlideInterval, setAutoSlideInterval] = useState<NodeJS.Timeout | null>(null);
+  const [failedImageUrls, setFailedImageUrls] = useState<string[]>([]);
+  const {
+    id,
+    name,
+    mainImage,
+    images,
+    featuredImage,
+    location,
+    price,
+    bedrooms,
+    bathrooms,
+    status,
+    status_name,
+    type,
+    type_name,
+    description,
+    features,
+    area,
+  } = property ?? ({} as Property);
+
+  // Get the actual status value - prefer status_name from database
+  const actualStatus = status_name || status || 'ongoing';
+  const actualType = type_name || type || 'Property';
+
+  // Prepare image array for slider
+  const imageArray = React.useMemo(() => {
+    if (!property) return [];
+    const allImages = getPropertyImageList({
+      id,
+      images,
+      featuredImage,
+      mainImage,
+    });
+    return allImages.filter((img) => !failedImageUrls.includes(img));
+  }, [property, featuredImage, mainImage, images, id, failedImageUrls]);
+
+  useEffect(() => {
+    setFailedImageUrls([]);
+    setCurrentImageIndex(0);
+    setImageError(false);
+  }, [id]);
+
+  useEffect(() => {
+    if (imageArray.length === 0) {
+      setImageError(true);
+      return;
+    }
+    if (currentImageIndex >= imageArray.length) {
+      setCurrentImageIndex(0);
+    }
+  }, [imageArray, currentImageIndex]);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    if (!property) return;
+    if (imageArray.length > 1 && !isHovering) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % imageArray.length);
+      }, 4000);
+      setAutoSlideInterval(interval);
+      return () => clearInterval(interval);
+    } else if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      setAutoSlideInterval(null);
+    }
+  }, [property, imageArray.length, isHovering]);
+
+  // Cleanup interval on unmount
+  useEffect(() => {
+    return () => {
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+      }
+    };
+  }, []);
 
   if (!property) {
     return (
@@ -51,54 +128,6 @@ const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
       </div>
     );
   }
-
-  const { id, name, mainImage, images, featuredImage, location, price, bedrooms, bathrooms, status, status_name, type, type_name, description, features, area } = property;
-
-  // Get the actual status value - prefer status_name from database
-  const actualStatus = status_name || status || 'ongoing';
-  const actualType = type_name || type || 'Property';
-
-  // Prepare image array for slider
-  const imageArray = React.useMemo(() => {
-    const allImages = [];
-    if (featuredImage) allImages.push(featuredImage);
-    if (mainImage && mainImage !== featuredImage) allImages.push(mainImage);
-    if (images && images.length > 0) {
-      images.forEach(img => {
-        if (img !== featuredImage && img !== mainImage) {
-          allImages.push(img);
-        }
-      });
-    }
-    // Fallback to default image if no images available
-    if (allImages.length === 0) {
-      allImages.push(`/images/${id}/main.jpg`);
-    }
-    return allImages;
-  }, [featuredImage, mainImage, images, id]);
-
-  // Auto-slide functionality
-  useEffect(() => {
-    if (imageArray.length > 1 && !isHovering) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % imageArray.length);
-      }, 4000);
-      setAutoSlideInterval(interval);
-      return () => clearInterval(interval);
-    } else if (autoSlideInterval) {
-      clearInterval(autoSlideInterval);
-      setAutoSlideInterval(null);
-    }
-  }, [imageArray.length, isHovering]);
-
-  // Cleanup interval on unmount
-  useEffect(() => {
-    return () => {
-      if (autoSlideInterval) {
-        clearInterval(autoSlideInterval);
-      }
-    };
-  }, []);
 
   // Navigation functions
   const nextImage = (e: React.MouseEvent) => {
@@ -202,6 +231,23 @@ const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
     router.push(`/properties/${id}`);
   };
 
+  const handleImageLoadError = () => {
+    const failedUrl = imageArray[currentImageIndex];
+    if (failedUrl) {
+      setFailedImageUrls((prev) => (prev.includes(failedUrl) ? prev : [...prev, failedUrl]));
+    }
+
+    if (imageArray.length <= 1) {
+      setImageError(true);
+      return;
+    }
+
+    setCurrentImageIndex((prev) => {
+      const next = prev >= imageArray.length - 1 ? 0 : prev + 1;
+      return next;
+    });
+  };
+
   return (
     <div 
       className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] group cursor-pointer"
@@ -218,7 +264,7 @@ const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
       }}
     >
       {/* Enhanced Image Slider Section */}
-      <div className="relative h-72 overflow-hidden isolate">
+      <div className="relative h-80 overflow-hidden isolate">
         {!imageError ? (
           <>
             {/* Main Image Display */}
@@ -228,9 +274,11 @@ const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
                 alt={`${name} - Image ${currentImageIndex + 1}`}
                 fill
                 className="object-cover transition-all duration-700 ease-in-out transform group-hover:scale-110"
-                onError={() => setImageError(true)}
+                onError={handleImageLoadError}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={true}
+                priority={priority}
+                loading={priority ? undefined : 'lazy'}
+                quality={priority ? 85 : 75}
               />
               
               {/* Enhanced Gradient Overlay */}
@@ -325,7 +373,7 @@ const PropertyCard = ({ property, onPropertyClick }: PropertyCardProps) => {
       </div>
 
       {/* Enhanced Content Section */}
-      <div className="p-6 space-y-4">
+      <div className="p-7 space-y-4">
         {/* Title with hover effect */}
         <div className="group/title cursor-pointer">
           <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-tight group-hover/title:text-[#1E40AF] transition-colors duration-200">

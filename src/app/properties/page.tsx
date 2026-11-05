@@ -7,6 +7,7 @@ import PropertyFilters from '../../components/PropertyFilters';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { supabase } from '@/lib/supabase';
+import { isPropertySafe } from '@/lib/security/propertySafety';
 
 interface Property {
   id: string;
@@ -36,6 +37,10 @@ interface Filters {
   roofType: string;
 }
 
+function normalizePropertyStatus(status?: string | null): 'completed' | 'ongoing' {
+  return status?.toLowerCase() === 'ongoing' ? 'ongoing' : 'completed';
+}
+
 function PropertiesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -59,25 +64,26 @@ function PropertiesContent() {
         setLoading(false);
         return;
       }
-      const propertiesArray = (data || []).map((property: any) => ({
-        id: property.id,
-        name: property.name,
-        location: property.location,
-        price: property.price,
-        bedrooms: property.bedrooms,
-        bathrooms: property.bathrooms,
-        mainImage: property.featuredImage || (property.images && property.images[0]) || '/images/placeholder.png',
-        images: property.images || [],
-        featuredImage: property.featuredImage,
-        status: property.property_statuses?.name || 'completed',
-        type: property.property_types?.name || 'House',
-        area: property.area,
-        description: property.description,
-        features: property.features,
-        roofType: property.roof_types?.name || '',
-      }));
+      const propertiesArray = (data || [])
+        .filter((property: any) => isPropertySafe(property))
+        .map((property: any) => ({
+          id: property.id,
+          name: property.name,
+          location: property.location,
+          price: property.price,
+          bedrooms: property.bedrooms,
+          bathrooms: property.bathrooms,
+          mainImage: property.featuredImage || (property.images && property.images[0]) || '/images/placeholder.png',
+          images: property.images || [],
+          featuredImage: property.featuredImage,
+          status: normalizePropertyStatus(property.property_statuses?.name),
+          type: property.property_types?.name || 'House',
+          area: property.area,
+          description: property.description,
+          features: property.features,
+          roofType: property.roof_types?.name || '',
+        }));
       setProperties(propertiesArray);
-      setFilteredProperties(propertiesArray);
       setLoading(false);
     };
     fetchProperties();
@@ -241,10 +247,10 @@ function PropertiesContent() {
   return (
     <div className="flex-grow bg-gray-50 min-h-screen">
       {/* Hero Section with Search */}
-      <div className="relative h-[250px] sm:h-[300px] lg:h-[350px] bg-cover bg-center" style={{ backgroundImage: 'url(/hero-house.jpg)' }}>
+      <div className="relative h-[300px] sm:h-[350px] lg:h-[400px] bg-cover bg-center" style={{ backgroundImage: 'url(/hero-house.jpg)' }}>
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-center">Find Your Dream Home</h1>
+          <h1 className="hero-title mb-4 sm:mb-6 text-center">Find Your Dream Home</h1>
           <div className="w-full max-w-2xl">
             <form onSubmit={handleSearch} className="relative">
               <input
@@ -356,7 +362,7 @@ function PropertiesContent() {
                 {searchQuery && (
                   <div className="flex items-center gap-2 text-xs text-gray-600">
                     <span>Search results for:</span>
-                    <span className="font-semibold text-primary">"{searchQuery}"</span>
+                    <span className="font-semibold text-primary">&quot;{searchQuery}&quot;</span>
                     <button 
                       onClick={clearSearch}
                       className="text-gray-400 hover:text-gray-600 transition-colors"

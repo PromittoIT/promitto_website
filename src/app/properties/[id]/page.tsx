@@ -6,6 +6,8 @@ import { supabase } from '@/lib/supabase';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
+import { isPropertySafe } from '@/lib/security/propertySafety';
+import { getPropertyImageList } from '@/lib/propertyImages';
 
 interface PropertyPageProps {
   params: {
@@ -78,6 +80,7 @@ function ImageSlider({ images, propertyName }: { images: string[], propertyName:
             className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority={currentIndex === 0}
             sizes="100vw"
+            quality={currentIndex === 0 ? 85 : 75}
             onLoadingComplete={() => setIsLoading(false)}
             onLoadStart={() => setIsLoading(true)}
           />
@@ -289,7 +292,7 @@ function InquiryCard({ propertyId, propertyName }: { propertyId: string, propert
           </div>
           <div>
             <h3 className="text-2xl font-bold text-primary mb-1">Interested in a Similar Design?</h3>
-            <p className="text-secondary font-medium">Let's build your dream home</p>
+            <p className="text-secondary font-medium">Let&apos;s build your dream home</p>
           </div>
         </div>
         <p className="mb-6 text-gray-700 leading-relaxed">Start your journey to owning a similar house design. Learn more about the process and get started with our personalized consultation.</p>
@@ -325,7 +328,7 @@ function InquiryCard({ propertyId, propertyName }: { propertyId: string, propert
         </div>
         <div>
           <h3 className="text-2xl font-bold text-primary mb-1">Interested in a Similar Design?</h3>
-          <p className="text-secondary font-medium">Let's discuss your dream home project</p>
+          <p className="text-secondary font-medium">Let&apos;s discuss your dream home project</p>
         </div>
       </div>
       <p className="mb-6 text-gray-700 leading-relaxed">
@@ -468,6 +471,9 @@ export default function PropertyPage({ params }: PropertyPageProps) {
       if (error || !data) {
         setError('Property not found');
         setProperty(null);
+      } else if (!isPropertySafe(data)) {
+        setError('Property not found');
+        setProperty(null);
       } else {
         setProperty(data);
       }
@@ -523,7 +529,13 @@ export default function PropertyPage({ params }: PropertyPageProps) {
     );
   }
 
-  const images: string[] = property.images || (property.featuredImage ? [property.featuredImage] : []);
+  const images: string[] = getPropertyImageList({
+    id: property.id,
+    images: property.images,
+    featuredImage: property.featuredImage,
+    mainImage: property.mainImage,
+    image_url: property.image_url,
+  });
 
   // Helper function to format price
   const formatPrice = (price: string | number | null) => {
@@ -557,7 +569,7 @@ export default function PropertyPage({ params }: PropertyPageProps) {
             <div className="mb-8">
               <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6 mb-6">
                 <div className="flex-1">
-                  <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">{property.name}</h1>
+                  <h1 className="site-title text-gray-900 mb-4">{property.name}</h1>
                   
                   {/* Location */}
                   <div className="flex items-center text-lg text-gray-600 mb-6">
@@ -781,7 +793,7 @@ export default function PropertyPage({ params }: PropertyPageProps) {
                       </div>
                       <div>
                         <p className="text-xs font-medium text-gray-500">Visit our office</p>
-                        <p className="text-xs font-medium text-gray-900 leading-relaxed">Pension Towers, Mezzanine Floor, Loita Street, Nairobi</p>
+                        <p className="text-xs font-medium text-gray-900 leading-relaxed">Pension Towers, 13th floor, Loita Street, Nairobi</p>
                       </div>
                     </div>
                   </div>

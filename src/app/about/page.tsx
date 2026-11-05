@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import MediaSidebar from '../../components/MediaSidebar';
 import CompetitiveAdvantages from '../../components/CompetitiveAdvantages';
 import KeyStatistics from '../../components/KeyStatistics';
 import Services from '../../components/Services';
@@ -15,7 +16,7 @@ const AboutUs = () => {
       <Header />
       <div>
         {/* Hero Section */}
-        <section className="relative h-[500px] overflow-hidden">
+        <section className="relative h-[300px] sm:h-[350px] lg:h-[400px] overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <Image
@@ -24,6 +25,8 @@ const AboutUs = () => {
               fill
               className="object-cover"
               priority
+              sizes="100vw"
+              quality={90}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
           </div>
@@ -46,14 +49,163 @@ const AboutUs = () => {
                                  <div className="space-y-4">
                   <div className="flex items-center">
                     <div className="w-1 h-16 bg-secondary mr-6"></div>
-                    <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+                    <h1 className="hero-title text-white">
                       About Us
                     </h1>
                   </div>
                    <p className="text-xl md:text-2xl text-white font-medium leading-relaxed max-w-2xl">
-                     Delivering the promise of homeownership through innovative construction financing and comprehensive project management.
+                     Promitto Limited helps you achieve homeownership by providing construction funding, project management, and construction services all under one roof. Start with as little as 30% of your project cost, and we&apos;ll finance the rest.
                    </p>
                  </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Purpose, Mission, Values & Vision Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Purpose */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Enriching Lives - Happy Family in New Home"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">OUR PURPOSE</h3>
+                      <p className="text-white font-semibold text-base">Enriching Lives</p>
+                    </div>
+                  </div>
+
+                  {/* Mission */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Construction and Building Homes"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent"></div>
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">OUR MISSION</h3>
+                      <p className="text-white text-base">
+                        To empower individuals to become homeowners. Enrich the well-being of individuals through provision of innovative products and services geared towards enhancing efficient and effective home ownership journey
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Values */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Construction Teamwork"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">CORE VALUES</h3>
+                      <ul className="text-white space-y-1 text-base">
+                        <li><span className="font-bold text-secondary">I</span>ntegrity</li>
+                        <li><span className="font-bold text-secondary">A</span>gility</li>
+                        <li><span className="font-bold text-secondary">O</span>perational Excellence</li>
+                        <li><span className="font-bold text-secondary">I</span>nnovation</li>
+                        <li><span className="font-bold text-secondary">T</span>ransparency</li>
+                        <li><span className="font-bold text-secondary">I</span>mpact</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Vision */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="/vision.jpeg"
+                        alt="Modern Housing Development Vision"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">OUR VISION</h3>
+                      <p className="text-white text-base">To offer structured and innovative housing programs in Africa</p>
+                    </div>
+                  </div>
+
+                  {/* Business Model */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1000&q=80"
+                        alt="Affordable path to homeownership - keys and financing"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">BUSINESS MODEL</h3>
+                      <p className="text-white text-base">Minimum of 30% project cost deposit with balance payable within 7 years.</p>
+                    </div>
+                  </div>
+
+                  {/* Eligibility */}
+                  <div className="bg-primary rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative h-48 flex-shrink-0">
+                      <Image
+                        src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Eligibility requirements - documents and criteria"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent"></div>
+                    </div>
+                    <div className="bg-primary p-6 flex-1 flex flex-col justify-start">
+                      <h3 className="text-xl font-bold text-secondary mb-3">ELIGIBILITY</h3>
+                      <ul className="text-white space-y-2 text-base">
+                        <li>Clean title deed.</li>
+                        <li>Ability to raise 30% of the total project cost.</li>
+                        <li>Ability to repay 70% for a period of up to 7 years.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:sticky lg:top-24 lg:h-fit">
+                <MediaSidebar />
               </div>
             </div>
           </div>
@@ -66,7 +218,7 @@ const AboutUs = () => {
               <div>
                 <div className="flex items-center mb-6">
                   
-                  <h4 className="text-3xl font-bold text-gray-900">Our Story & The Housing Context</h4>
+                  <h2 className="site-title text-gray-900">Our Story & The Housing Context</h2>
                 </div>
                 <p className="text-gray-700 mb-6 leading-relaxed text-lg">
                   Kenya faces a significant housing deficit, with over <span className="font-semibold text-primary">2 million units needed</span> and an annual demand gap of <span className="font-semibold text-secondary">200,000 homes</span>. While initiatives like the Affordable Housing Programme have made strides, challenges related to cost, financing, and regulatory inefficiencies persist. This gap presents a tremendous opportunity for Promitto to expand its reach and help address this crisis.
@@ -76,16 +228,15 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="relative h-[400px] rounded-xl overflow-hidden flex items-center justify-center bg-black">
-                <iframe
+                <video
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/FMRvwAfwk48"
-                  title="Promitto Story Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                ></iframe>
+                  controls
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src="/media/about_us_vid.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>
@@ -99,7 +250,7 @@ const AboutUs = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-center mb-12">
               
-              <h4 className="text-3xl font-bold text-gray-900">Our Global Presence</h4>
+              <h2 className="site-title text-gray-900">Our Global Presence</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
@@ -113,7 +264,7 @@ const AboutUs = () => {
                     <div className="w-4 h-4 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <h4 className="font-bold text-gray-900 text-lg mb-2">Kenya - Main Office</h4>
-                      <p className="text-gray-600 mb-1"> Nairobi, Loita street, Pension Towers, Floor M2</p>
+                      <p className="text-gray-600 mb-1"> Nairobi, Loita street, Pension Towers, 13th floor</p>
                       <p className="text-primary font-semibold">+254 729 506 506</p>
                       <p className="text-gray-600 text-sm mt-2">Email: info@promittoltd.com</p>
                     </div>
@@ -138,6 +289,9 @@ const AboutUs = () => {
                   alt="Promitto Global Presence Map showing Kenya and Zambia"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
@@ -181,7 +335,7 @@ const AboutUs = () => {
                 <ul className="text-gray-700 space-y-2">
                   <li><span className="mr-2">📞</span><span className="font-semibold">Phone:</span> +254 729 506 506</li>
                   <li><span className="mr-2">✉️</span><span className="font-semibold">Email:</span> info@promittoltd.com</li>
-                  <li><span className="mr-2">🏢</span><span className="font-semibold">Office:</span> Pension Towers, Nairobi Loita street, Floor M2</li>
+                  <li><span className="mr-2">🏢</span><span className="font-semibold">Office:</span> Pension Towers, Nairobi Loita street, 13th floor</li>
                   <li><span className="mr-2">🌐</span><span className="font-semibold">Website:</span> <a href="http://www.promittoltd.com" className="text-blue-600 underline">www.promittoltd.com</a></li>
                 </ul>
               </div>

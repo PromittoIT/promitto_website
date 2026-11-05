@@ -69,7 +69,7 @@ const KeyStatistics = () => {
       suffix: ''
     },
     {
-      number: 60,
+      number: 200,
       label: 'Homes Constructed Annually',
       icon: '🏗️',
       description: 'By Promitto in Kenya',
@@ -83,12 +83,16 @@ const KeyStatistics = () => {
       suffix: '+'
     }
   ];
+  const countA = useCountUp(stats[0].number, 2500);
+  const countB = useCountUp(stats[1].number, 2500);
+  const countC = useCountUp(stats[2].number, 2500);
+  const countUps = [countA, countB, countC];
 
   return (
     <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-primary mb-4">
+          <h2 className="site-title text-primary mb-4">
             The Housing Crisis in Numbers
           </h2>
           <p className="text-xl text-primary/80 max-w-3xl mx-auto">
@@ -99,7 +103,7 @@ const KeyStatistics = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {stats.map((stat, index) => {
-            const { count, ref } = useCountUp(stat.number, 2500);
+            const { count, ref } = countUps[index];
             
             // Format the number with commas for better readability
             const formattedCount = count.toLocaleString();

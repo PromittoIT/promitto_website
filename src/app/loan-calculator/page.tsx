@@ -10,7 +10,7 @@ const LoanCalculator = () => {
   const [propertyType, setPropertyType] = useState<string>('residential'); // residential or commercial
   const [loanTerm, setLoanTerm] = useState<string>('7'); // Default 7 years, adjustable
   const [interestRate] = useState<string>('12');
-  const [processingFee] = useState<string>('2.5'); // 2.5% processing fee
+  const [processingFee] = useState<string>('5'); // 5% processing fee
   const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
   const [totalPayment, setTotalPayment] = useState<number>(0);
   const [totalInterest, setTotalInterest] = useState<number>(0);
@@ -57,8 +57,9 @@ const LoanCalculator = () => {
     // Calculate processing fee
     const processingFeeAmount = Math.round(principal * (Number(processingFee) / 100));
     
-    // Calculate monthly payment using the loan amortization formula
+    // Calculate monthly payment using reducing balance amortization formula
     // PMT = P * (r * (1 + r)^n) / ((1 + r)^n - 1)
+    // This formula ensures interest is calculated on the remaining balance each month
     // Where:
     // PMT = Monthly Payment
     // P = Principal loan amount
@@ -69,12 +70,30 @@ const LoanCalculator = () => {
       (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
       (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
     
+    // Verify calculation using reducing balance method (month-by-month)
+    let remainingBalance = principal;
+    let totalInterestCalculated = 0;
+    
+    for (let month = 1; month <= numberOfPayments; month++) {
+      // Interest for this month = remaining balance * monthly rate
+      const monthlyInterest = remainingBalance * monthlyRate;
+      // Principal portion = monthly payment - interest
+      const principalPortion = monthlyPaymentAmount - monthlyInterest;
+      // Update remaining balance
+      remainingBalance = remainingBalance - principalPortion;
+      totalInterestCalculated += monthlyInterest;
+    }
+    
+    // Round remaining balance to handle floating point precision
+    remainingBalance = Math.round(remainingBalance);
+    
+    // Use the verified total interest from reducing balance calculation
     const totalPaymentAmount = monthlyPaymentAmount * numberOfPayments;
-    const totalInterestAmount = totalPaymentAmount - principal;
+    const totalInterestAmount = Math.round(totalInterestCalculated);
     
     setMonthlyPayment(Math.round(monthlyPaymentAmount));
     setTotalPayment(Math.round(totalPaymentAmount));
-    setTotalInterest(Math.round(totalInterestAmount));
+    setTotalInterest(totalInterestAmount);
     setProcessingFeeAmount(processingFeeAmount);
     setIsCalculated(true);
 
@@ -117,7 +136,7 @@ const LoanCalculator = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </div>
-          <h1 className="text-5xl font-bold text-primary mb-4">Loan Calculator</h1>
+          <h1 className="site-title text-primary mb-4">Loan Calculator</h1>
           <h2 className="text-2xl text-gray-700 mb-2 font-semibold">Jenga Nyumba Loan Calculator</h2>
           <p className="text-lg text-gray-600 font-medium">Calculate your dream home financing with our transparent loan calculator</p>
           <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
@@ -127,7 +146,7 @@ const LoanCalculator = () => {
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-secondary rounded-full"></div>
-              <span className="text-gray-700 font-medium">Processing Fee: 2.5%</span>
+              <span className="text-gray-700 font-medium">Processing Fee: 5%</span>
             </div>
           </div>
         </div>
@@ -314,7 +333,7 @@ const LoanCalculator = () => {
                 <li>Loan term is adjustable from <span className="font-bold text-primary">1-7 years</span> for residential properties</li>
                 <li>Loan term is adjustable from <span className="font-bold text-primary">1-10 years</span> for commercial properties</li>
                 <li>Interest rate is fixed at <span className="font-bold text-primary">12% per annum</span> on reducing balance</li>
-                <li>Processing fee is <span className="font-bold text-secondary">2.5%</span> of the loan amount</li>
+                <li>Processing fee is <span className="font-bold text-secondary">5%</span> of the loan amount</li>
                 <li>Monthly payments start one month after construction begins</li>
                 <li>Construction period is typically <span className="font-bold text-primary">6-12 months</span></li>
               </ul>

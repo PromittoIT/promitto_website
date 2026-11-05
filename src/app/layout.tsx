@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
@@ -7,8 +8,12 @@ import ClientWrapper from '@/components/ClientWrapper';
 import WhatsAppChat from '@/components/WhatsAppChat';
 import FloatingCalculator from '@/components/FloatingCalculator';
 import FloatingGetStarted from '@/components/FloatingGetStarted';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
-const inter = Inter({ 
+// Avoid Next.js lucide-react barrel optimization breaking icons during static prerender.
+export const dynamic = 'force-dynamic';
+
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
@@ -40,8 +45,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body className={inter.className}>
+        <GoogleAnalytics />
         <AuthProvider>
           {children}
           <ClientWrapper>
@@ -54,4 +60,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}

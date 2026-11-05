@@ -11,6 +11,7 @@ interface FloatingCalculatorProps {
 type ViewState = 'form' | 'notes' | 'results';
 
 const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' }) => {
+  const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(false);
   const [viewState, setViewState] = useState<ViewState>('form');
   const [propertyCost, setPropertyCost] = useState<string>('3,000,000');
@@ -18,7 +19,7 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
   const [propertyType, setPropertyType] = useState<string>('residential');
   const [loanTerm, setLoanTerm] = useState<string>('7');
   const [interestRate] = useState<string>('12');
-  const [processingFee] = useState<string>('2.5');
+  const [processingFee] = useState<string>('5');
   const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
   const [totalPayment, setTotalPayment] = useState<number>(0);
   const [totalInterest, setTotalInterest] = useState<number>(0);
@@ -28,9 +29,13 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
   const [isCalculated, setIsCalculated] = useState<boolean>(false);
   
   const calculatorRef = useRef<HTMLDivElement>(null);
+  
+  // Hide calculator on admin pages
+  const isAdminPage = pathname?.startsWith('/admin');
 
   // Close calculator when clicking outside
   useEffect(() => {
+    if (isAdminPage) return; // Early return inside useEffect is fine
     const handleClickOutside = (event: MouseEvent) => {
       if (calculatorRef.current && !calculatorRef.current.contains(event.target as Node)) {
         setIsExpanded(false);
@@ -49,6 +54,8 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
 
   // Close calculator on escape key
   useEffect(() => {
+    if (isAdminPage) return; // Early return inside useEffect is fine
+    
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isExpanded) {
         setIsExpanded(false);
@@ -63,7 +70,7 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isExpanded]);
+  }, [isExpanded, isAdminPage]);
 
   const formatNumber = (value: string): string => {
     const numericValue = value.replace(/[^0-9]/g, '');
@@ -131,20 +138,22 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
 
   // Update down payment whenever property cost changes
   React.useEffect(() => {
+    if (isAdminPage) return;
     const cost = parseNumber(propertyCost);
     const downPaymentAmount = Math.round(cost * 0.3);
     setDownPayment(formatNumber(downPaymentAmount.toString()));
-  }, [propertyCost]);
+  }, [propertyCost, isAdminPage]);
 
   // Update loan term when property type changes
   React.useEffect(() => {
+    if (isAdminPage) return;
     if (propertyType === 'residential' && Number(loanTerm) > 7) {
       setLoanTerm('7');
     } else if (propertyType === 'commercial' && Number(loanTerm) > 10) {
       setLoanTerm('10');
     }
     setIsCalculated(false);
-  }, [propertyType, loanTerm]);
+  }, [propertyType, loanTerm, isAdminPage]);
 
   const renderForm = () => (
     <div className="space-y-3 sm:space-y-4">
@@ -275,7 +284,7 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
           <li>Loan term is adjustable from <span className="font-bold text-primary">1-7 years</span> for residential properties</li>
           <li>Loan term is adjustable from <span className="font-bold text-primary">1-10 years</span> for commercial properties</li>
           <li>Interest rate is fixed at <span className="font-bold text-primary">12% per annum</span> on reducing balance</li>
-          <li>Processing fee is <span className="font-bold text-secondary">2.5%</span> of the loan amount</li>
+          <li>Processing fee is <span className="font-bold text-secondary">5%</span> of the loan amount</li>
           <li>Monthly payments start one month after construction begins</li>
           <li>Construction period is typically <span className="font-bold text-primary">6-12 months</span></li>
         </ul>
@@ -382,6 +391,11 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
     </div>
   );
 
+  // Hide calculator on admin pages - return null after all hooks
+  if (isAdminPage) {
+    return null;
+  }
+
   return (
     <div ref={calculatorRef} className={`fixed left-0 top-1/2 transform -translate-y-1/2 z-50 ${className}`}>
       {/* Floating Button */}
@@ -438,11 +452,4 @@ const FloatingCalculator: React.FC<FloatingCalculatorProps> = ({ className = '' 
   );
 };
 
-// Not shown in the admin area, where it would cover the admin sidebar
-const FloatingCalculatorOutsideAdmin: React.FC<FloatingCalculatorProps> = (props) => {
-  const pathname = usePathname();
-  if (pathname?.startsWith('/admin')) return null;
-  return <FloatingCalculator {...props} />;
-};
-
-export default FloatingCalculatorOutsideAdmin;
+export default FloatingCalculator;

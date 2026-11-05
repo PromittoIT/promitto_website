@@ -83,6 +83,11 @@ const TrustSection = () => {
       description: 'Loan application success'
     }
   ];
+  const metricA = useCountUp(trustMetrics[0].number, 2500);
+  const metricB = useCountUp(trustMetrics[1].number, 2500);
+  const metricC = useCountUp(trustMetrics[2].number, 2500);
+  const metricD = useCountUp(trustMetrics[3].number, 2500);
+  const trustCounts = [metricA, metricB, metricC, metricD];
 
   const awards = [
     {
@@ -112,7 +117,7 @@ const TrustSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Trust Metrics */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="site-title text-gray-900 mb-4">
             Trusted by Thousands of Homeowners
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
@@ -121,7 +126,7 @@ const TrustSection = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {trustMetrics.map((metric, index) => {
-              const { count, ref } = useCountUp(metric.number, 2500);
+              const { count, ref } = trustCounts[index];
               const suffix = metric.label === 'Approval Rate' ? '%' : metric.label === 'Years Experience' ? '+' : '+';
               
               return (
@@ -161,6 +166,9 @@ const TrustSection = () => {
                     alt={award.name}
                     fill
                     className="object-contain p-2"
+                    sizes="80px"
+                    loading="lazy"
+                    quality={75}
                   />
                 </div>
                 <h4 className="text-sm font-semibold text-gray-900 mb-2 leading-tight">

@@ -14,7 +14,7 @@ const HowToOwn = () => {
     <div className="min-h-screen">
       <Header />
       {/* Hero Section */}
-      <section className="relative h-[70vh] overflow-hidden">
+      <section className="relative h-[300px] sm:h-[350px] lg:h-[400px] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -23,6 +23,8 @@ const HowToOwn = () => {
             fill
             className="object-cover"
             priority
+            sizes="100vw"
+            quality={90}
           />
           <div className="absolute inset-0 bg-primary/70" />
         </div>
