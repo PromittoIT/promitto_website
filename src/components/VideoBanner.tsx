@@ -242,7 +242,7 @@ const VideoBanner = ({
         )}
 
         {cta && (
-          <div className="absolute inset-y-0 left-0 flex items-center px-10 lg:px-14">
+          <div className="absolute left-0 top-0 px-10 pt-5 sm:pt-8 lg:px-14">
             <Link
               href={cta.href}
               className="group inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-bold text-primary shadow-lg transition-all duration-300 hover:bg-white hover:shadow-xl sm:px-7 sm:py-3 sm:text-base"
