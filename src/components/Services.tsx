@@ -6,8 +6,8 @@ const Services = () => {
   const services = [
     {
       title: 'Construction Financing',
-      description: 'Access flexible financing solutions covering up to 70% of your construction costs. Competitive 12% interest rate with repayment periods of 1-7 years.',
-      features: ['Up to 70% funding', '12% interest rate', '1-7 years repayment', '30 days grace period'],
+      description: 'Access flexible financing solutions covering up to 70% of your construction costs. Competitive 12% p.a. interest on reducing balance, with repayment periods of 1-7 years.',
+      features: ['Up to 70% funding', '12% p.a. reducing balance', '1-7 years repayment', '30 days grace period'],
       image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       link: '/loan-calculator',
       cta: 'Calculate Loan'

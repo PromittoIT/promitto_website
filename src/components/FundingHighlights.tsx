@@ -19,7 +19,7 @@ const FundingHighlights = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
         </svg>
       ),
-      title: '12% Interest Rate',
+      title: '12% p.a. Reducing Balance',
       description: 'Competitive 12% per annum on reducing balance',
       color: 'bg-gray-100'
     },

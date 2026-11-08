@@ -142,7 +142,7 @@ const LoanCalculator = () => {
           <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-primary rounded-full"></div>
-              <span className="text-gray-700 font-medium">Interest Rate: 12% per annum</span>
+              <span className="text-gray-700 font-medium">Interest Rate: 12% p.a. (reducing balance)</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-secondary rounded-full"></div>

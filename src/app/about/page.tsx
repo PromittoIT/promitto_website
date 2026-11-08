@@ -344,7 +344,7 @@ const AboutUs = () => {
                 <ul className="text-gray-700 space-y-2">
                   <li><span className="mr-2">📞</span><span className="font-semibold">Phone:</span> +260 775 604 455</li>
                   <li><span className="mr-2">✉️</span><span className="font-semibold">Email:</span> info@promittoltd.com</li>
-                  <li><span className="mr-2">🏢</span><span className="font-semibold">Office:</span> Woodlands shopping mall, 1st floor</li>
+                  <li><span className="mr-2">🏢</span><span className="font-semibold">Office:</span> Lusaka, Chindo Rd, Woodlands shopping mall, 1st floor</li>
                   <li><span className="mr-2">🌐</span><span className="font-semibold">Website:</span> <a href="http://www.promittoltd.com" className="text-blue-600 underline">www.promittoltd.com</a></li>
                 </ul>
               </div>

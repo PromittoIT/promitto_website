@@ -8,7 +8,7 @@ const ProductPackages = () => {
       features: [
         'Up to 70% funding of project cost',
         '1-7 years repayment period',
-        '12% interest rate per annum',
+        '12% p.a. on reducing balance',
         'Comprehensive construction services',
         'Project management included'
       ],
@@ -22,7 +22,7 @@ const ProductPackages = () => {
       features: [
         'Up to 70% funding available',
         'Up to 5 years repayment period',
-        '12% interest rate per annum',
+        '12% p.a. on reducing balance',
         'Interior and exterior renovations',
         'Quality finishing materials'
       ],
@@ -36,7 +36,7 @@ const ProductPackages = () => {
       features: [
         'Financial help for perimeter walls',
         'Up to 2 years repayment period',
-        '12% interest rate per annum',
+        '12% p.a. on reducing balance',
         'Professional construction team',
         'Quality materials and workmanship'
       ],
