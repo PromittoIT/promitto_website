@@ -96,6 +96,12 @@ function ResetPasswordPageInner() {
         console.log('Session check:', { hasSession: !!session, sessionError });
         
         if (session) {
+          // Arrived from /auth/confirm, which already verified the recovery link and signed the user in
+          if (queryParams.get('confirmed') === '1') {
+            setTokenValid(true);
+            setError(null);
+            return;
+          }
           // If we have a session and there's a hash, it's likely from recovery
           if (hash.includes('access_token') || hash.includes('type=recovery') || hash.includes('recovery')) {
             console.log('Session found with recovery hash');
